@@ -1,0 +1,36 @@
+<div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+    <table class="uk-table">
+        <caption>
+            POIs Added
+        </caption>
+        <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Creator</th>
+
+        </thead>
+        <tbody class="uk-text-left">
+        {{#each pois}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{description}}</td>
+                <td>{{latitude}}</td>
+                <td>{{longitude}}</td>
+                <td> {{creator.firstName}} {{creator.lastName}} </td>
+                <td>
+                    <a href="/showEditPOI/{{_id}}" class="uk-card uk-card-small uk-card-hover uk-padding-small">
+                        <i class="fas fa-edit fa-3x" style="color:rgb(238,165,19)" title="Edit POI {{_id}}" pos="bottom" uk-tooltip></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="/deletePOI/{{_id}}" class="uk-card uk-card-small uk-card-hover uk-padding-small">
+                        <i class="fas fa-trash fa-3x" style="color:rgb(248,0,0)" title="Delete {{_id}}" pos="bottom" uk-tooltip></i>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>

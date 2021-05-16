@@ -1,0 +1,21 @@
+<div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+  <table class="uk-table">
+      <h1 class="uk-heading-small">
+          The Islands of Ireland
+      </h1>
+      <thead>
+          <th>Name</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Description</th>
+      </thead>
+      {{#each pois}}
+          <tbody>
+              <td>{{name}}</td>
+              <td>{{latitude}}</td>
+              <td>{{longitude}}</td>
+              <td>{{description}}</td>
+          </tbody>
+      {{/each}}
+  </table>
+</div>
