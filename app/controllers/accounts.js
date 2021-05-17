@@ -20,10 +20,10 @@ const Accounts = {
     auth: false,
     validate: {
       payload: {
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
+        firstName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-]{3,15}$/).required(),
+        lastName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-']{3,15}$/).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_]$/).required(),
       },
       options: {
         abortEarly: false,
@@ -71,7 +71,7 @@ const Accounts = {
     validate: {
       payload: {
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_]$/).required(),
       },
       options: {
         abortEarly: false,
@@ -122,10 +122,10 @@ const Accounts = {
   updateSettings: {
     validate: {
       payload: {
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
+        firstName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-]{3,15}$/).required(),
+        lastName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-']{3,15}$/).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_]$/).required(),
       },
       options: {
         abortEarly: false,
