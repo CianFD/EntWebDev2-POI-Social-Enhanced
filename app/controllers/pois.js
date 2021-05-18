@@ -19,6 +19,26 @@ const POIs = {
     }
   },
   addPOI: {
+    validate: {
+      payload: {
+        name: Joi.string().pattern(/^[A-Z][a-zA-Z\s-']{3,20}$/).required(),
+        description: Joi.string().pattern(/[a-zA-Z\s-']$/).required(),
+        latitude: Joi.number().required(),
+        longitude: Joi.number().required()
+      },
+      options: {
+        abortEarly: false,
+      },
+      failAction: function (request, h, error) {
+        return h
+          .view("home", {
+            title: "Add POI Failed",
+            errors: error.details,
+          })
+          .takeover()
+          .code(400);
+      },
+    },
     handler: async function(request, h) {
       try {
         const id = request.auth.credentials.id;
@@ -53,10 +73,10 @@ const POIs = {
   editPOI: {
     validate: {
       payload: {
-        name: Joi.string().required(),
-        description: Joi.string().required(),
-        latitude: Joi.string().required(),
-        longitude: Joi.string().required()
+        name: Joi.string().pattern(/^[A-Z][a-zA-Z\s-']{3,20}$/).required(),
+        description: Joi.string().pattern(/[a-zA-Z\s-']$/).required(),
+        latitude: Joi.number().required(),
+        longitude: Joi.number().required()
       },
       options: {
         abortEarly: false,
