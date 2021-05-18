@@ -122,10 +122,10 @@ const Accounts = {
   updateSettings: {
     validate: {
       payload: {
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
+        firstName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-]{3,15}$/).required(),
+        lastName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-']{3,15}$/).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_]$/).required(),
       },
       options: {
         abortEarly: false,
@@ -145,10 +145,11 @@ const Accounts = {
         const userEdit = request.payload;
         const id = request.auth.credentials.id;
         const user = await User.findById(id);
+        const hash = await bcrypt.hash(userEdit.password, saltRounds);
         user.firstName = userEdit.firstName;
         user.lastName = userEdit.lastName;
         user.email = userEdit.email;
-        user.password = userEdit.password;
+        user.password = hash;
         await user.save();
         return h.redirect("/settings");
       } catch (err) {
