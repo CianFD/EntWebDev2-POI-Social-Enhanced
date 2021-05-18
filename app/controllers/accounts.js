@@ -148,7 +148,9 @@ const Accounts = {
         const userEdit = request.payload;
         const id = request.auth.credentials.id;
         const user = await User.findById(id);
-        const hash = await bcrypt.hash(payload.password, saltRounds);
+
+        const hash = await bcrypt.hash(userEdit.password, saltRounds);
+     
         user.firstName = userEdit.firstName;
         user.lastName = userEdit.lastName;
         user.email = userEdit.email;
