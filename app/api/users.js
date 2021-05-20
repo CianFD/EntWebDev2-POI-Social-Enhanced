@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const User = require('../models/user');
+const User = require("../models/user");
 const Boom = require("@hapi/boom");
 
 const Users = {
@@ -35,14 +35,14 @@ const Users = {
       if (user) {
         return h.response(user).code(201);
       }
-      return Boom.badImplementation("error creating User");
+      return Boom.badImplementation("error creating user");
     },
   },
 
   deleteAll: {
     auth: false,
     handler: async function (request, h) {
-      await User.remove({});
+      await User.deleteMany({});
       return { success: true };
     },
   },
@@ -50,7 +50,7 @@ const Users = {
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
-      const user = await User.remove({ _id: request.params.id });
+      const user = await User.deleteOne({ _id: request.params.id });
       if (user) {
         return { success: true };
       }

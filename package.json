@@ -19,6 +19,7 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
     "handlebars": "^4.7.6",
+    "lodash": "^4.17.21",
     "mais-mongoose-seeder": "^1.0.7",
     "mongoose": "^5.11.15"
   },
