@@ -75,6 +75,20 @@ class poiService {
     }
   }
 
+  async getAllPois() {
+    const response = await axios.get(this.baseUrl + "/api/pois");
+    return response.data;
+  }
+
+  async getPoi(id) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/pois/" + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async getPois(id) {
     try {
       const response = await axios.get(this.baseUrl + "/api/users/" + id + "/pois");

@@ -25,7 +25,7 @@ const Accounts = {
         firstName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-]{3,15}$/).required(),
         lastName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-']{3,15}$/).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_]{8,20}$/).required(),
+        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_$./]{8}$/).required(),
       },
       options: {
         abortEarly: false,
@@ -128,7 +128,7 @@ const Accounts = {
         firstName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-]{3,15}$/).required(),
         lastName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-']{3,15}$/).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_]{8,20}$/).required(),
+        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_$./]{8}$/).required(),
       },
       options: {
         abortEarly: false,
