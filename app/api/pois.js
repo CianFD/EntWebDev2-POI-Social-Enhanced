@@ -2,6 +2,7 @@
 
 const Poi = require("../models/poi");
 const Boom = require("@hapi/boom");
+const User = require("../models/user");
 
 const Pois = {
   findAll: {
@@ -24,11 +25,11 @@ const Pois = {
     auth: false,
     handler: async function (request, h) {
       let poi = new Poi(request.payload);
-      const creator = await User.findOne({ _id: request.params.id });
+      const user = await User.findOne({ _id: request.params.id });
       if (!user) {
         return Boom.notFound("No User with this id");
       }
-      poi.user = creator._id;
+      poi.creator = user._id;
       poi = await poi.save();
       return poi;
     },

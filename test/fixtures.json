@@ -30,26 +30,20 @@
     {
       "name": "Colt Island",
       "description": "A small, low-lying island lying just off the point at Skerries. Land easily on sand/shingle on SW side. The E side has reefs and breakers that should be avoided in strong NE – SE winds in spring ebb tides.",
-      "latitude": "53.5846497",
-      "longitude": "-6.08758199"
+      "latitude": 53.5846497,
+      "longitude": -6.08758199
     },
     {
       "name": "Saint Patrick’s Island",
       "description": "A small island, outside Colt, known locally as Church Island. The accuracy as to whether St. Patrick ever landed here is a source of some debate. This is the jumping off point for Rockabill. Land easily at a sheltered storm beach, just W of the S tip, in almost any conditions. Landing is also possible at higher tides at a shingle cove just further E. There is a further landing place on the N facing shore near a ruined house and marked by two metal poles – a small beachlet among the rocks, for when southerlies prevail. There is the ruin of an Early Christian Church and a small monastery, which dates back to Viking times. It was important enough to merit a synod being held in 1148 in which fifteen bishops, two hundred priests, and several other clergy assisted. The church towards the E tip is still very much worth the visit. St Patrick’s Island has an internationally important breeding population of Cormorants (2001 Census) of 550 pairs. There are breeding gulls, Shags and Fulmars in summer, while geese, ducks and waders provide winter interest. There is a colony of 70-80 Grey Seals, especially during winter. The NE and eastern sides of the island catch the full ebb tide over a rocky underwater reef. Overfalls can develop, especially in S/SE winds against a spring ebb tide. In the sound between St. Patrick’s and Colt Islands, a lesser overfall can develop over a small bar that extends westwards off the corner of St. Patrick’s.",
-      "latitude": "53.58622764",
-      "longitude": "-6.0739187"
+      "latitude": 53.58622764,
+      "longitude": -6.0739187
     },
     {
       "name": "Small Island",
       "description": "Known locally (quite logically) as the Inner Island, it is low and grassy, with extensive reefs and rocky shorelines at low water. It is just accessible on foot at LW, though not easily, and it involves getting your feet wet. Landing is best on the eastern side, facing the outer island, where there is a small beach, just where the island is waisted. There is no water. In 2002, three full-blooded male goats proved quite a deterrent to would\u007Fbe landers or campers. Blowholes.",
-      "latitude": "51.82611583",
-      "longitude": "-7.99491687"
+      "latitude": 51.82611583,
+      "longitude": -7.99491687
     }
-  ],
-  "newPoi": {
-    "name": "Rocky Island",
-    "description": "Haulbowline Island is joined to the mainland near Ringaskiddy on its S side by a road bridge. The bridge spans to and from Rocky Island.  The road bisects the island.  Rocky received planning permission for use as a crematorium in late 2006.  The crematorium will be W of the road and parking E. High rocky and fortified, the summit is a big tent shaped rock in the middle.  Its triple ramparts and central citadel were a gunpowder store from 1808.  The outer trenches were lit by candles recessed into hollows in the wall for safety.  Unoccupied 1920s to 1964, Irish Steel built the bridge when it took over, and it was storage until 2001. Rocky is always landable because the bridge supports give shelter, especially on the landward Ringaskiddy side where the rocks are shelving",
-    "latitude": "51.83741484",
-    "longitude": "-8.30102961"
-  }
+  ]
 }
