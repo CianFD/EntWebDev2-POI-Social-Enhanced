@@ -5,7 +5,7 @@
       "firstName": "Homer",
       "lastName": "Simpson",
       "email": "homer@simpson.com",
-      "password": "secretpassword"
+      "password": "$2a$10$klXuMwoCJYHPtvMY0EHpo.T1moA3qq1UXwwBu33wQjSCgGIPbPEP6"
     },
     "marge": {
       "firstName": "Marge",
