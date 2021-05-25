@@ -2,10 +2,13 @@
 
 const User = require("../models/user");
 const Boom = require("@hapi/boom");
+const utils = require('./utils.js');
 
 const Users = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const users = await User.find();
       return users;
@@ -13,7 +16,9 @@ const Users = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const user = await User.findOne({ _id: request.params.id });
@@ -28,7 +33,9 @@ const Users = {
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const newUser = new User(request.payload);
       const user = await newUser.save();
@@ -40,7 +47,9 @@ const Users = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       await User.deleteMany({});
       return { success: true };
@@ -48,7 +57,9 @@ const Users = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const user = await User.deleteOne({ _id: request.params.id });
       if (user) {
@@ -59,7 +70,9 @@ const Users = {
   },
 
   authenticate: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const user = await User.findOne({ email: request.payload.email });
@@ -68,7 +81,8 @@ const Users = {
         } else if (user.password !== request.payload.password) {
           return Boom.unauthorized("Invalid password");
         } else {
-          return user;
+          const token = utils.createToken(user);
+          return h.response({ success: true, token: token }).code(201);
         }
       } catch (err) {
         return Boom.notFound("internal db failure");

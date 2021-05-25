@@ -6,7 +6,9 @@ const User = require("../models/user");
 
 const Pois = {
   findAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const pois = await Poi.find();
       return pois;
@@ -14,7 +16,9 @@ const Pois = {
   },
 
   findByUser: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const pois = await Poi.find({ creator: request.params.id });
       return pois;
@@ -22,21 +26,22 @@ const Pois = {
   },
 
   addPoi: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       let poi = new Poi(request.payload);
-      const user = await User.findOne({ _id: request.params.id });
-      if (!user) {
-        return Boom.notFound("No User with this id");
-      }
-      poi.creator = user._id;
+      const userId = utils.getUserIdFromRequest(request);
+      poi.creator = userId;
       poi = await poi.save();
       return poi;
     },
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       await Poi.deleteMany({});
       return { success: true };

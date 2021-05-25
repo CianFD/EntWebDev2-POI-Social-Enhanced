@@ -11,14 +11,16 @@ suite("POI API tests", function () {
 
   const userService = new poiService(fixtures.poiService);
 
-  setup(async function () {
-    userService.deleteAllUsers();
-    userService.deleteAllPois();
+  suiteSetup(async function () {
+    await userService.deleteAllUsers();
+    const returnedUser = await userService.createUser(newUser);
+    const response = await userService.authenticate(newUser);
   });
-  teardown(async function () {
-    userService.deleteAllUsers();
-    userService.deleteAllPois();
-  });
+
+  suiteTeardown(async function () {
+    await userService.deleteAllUsers();
+    userService.clearAuth();
+  })
 
   test("add a POI", async function () {
     const returnedUser = await userService.createUser(newUser);
@@ -38,10 +40,6 @@ suite("POI API tests", function () {
       assert.equal([returnedPois[i].name], pois[i].name, "returned POI must be a superset of POI");
     }
   });
-  test("get all POIs empty", async function () {
-    const allPois = await userService.getAllPois();
-    assert.equal(allPois.length, 0);
-  });
   test("get invalid POI", async function () {
     const fakePoi = await userService.getPoi("1234");
     assert.isNull(fakePoi);
@@ -59,5 +57,18 @@ suite("POI API tests", function () {
     const d2 = await userService.getPois(returnedUser._id);
     assert.equal(d2.length, 0);
   });
+  test("get all POIs empty", async function () {
+    const allPois = await userService.getAllPois();
+    assert.equal(allPois.length, 0);
+  });
 
+  test("create a poi and check creator", async function () {
+    const returnedUser = await userService.createUser(newUser);
+    const poi = await userService.addPoi(returnedUser._id, pois[0]);
+    const returnedPoi = await userService.getPois(returnedUser._id);
+    assert.isDefined(returnedPoi[0].creator);
+
+    const users = await userService.getUsers();
+    assert(_.some([users[0]], newUser), "returnedUser must be a superset of newUser");
+  });
 });
