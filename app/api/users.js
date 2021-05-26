@@ -33,9 +33,7 @@ const Users = {
   },
 
   create: {
-    auth: {
-      strategy: "jwt",
-    },
+    auth: false,
     handler: async function (request, h) {
       const newUser = new User(request.payload);
       const user = await newUser.save();
@@ -70,9 +68,7 @@ const Users = {
   },
 
   authenticate: {
-    auth: {
-      strategy: "jwt",
-    },
+    auth: false,
     handler: async function (request, h) {
       try {
         const user = await User.findOne({ email: request.payload.email });
@@ -87,6 +83,25 @@ const Users = {
       } catch (err) {
         return Boom.notFound("internal db failure");
       }
+    },
+  },
+
+  update: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      const userEdit = request.payload;
+      const user = await User.findById(userEdit._id);
+      user.firstName = userEdit.firstName;
+      user.lastName = userEdit.lastName;
+      user.email = userEdit.email;
+      user.password = userEdit.password;
+      await user.save();
+      if (user) {
+        return { success: true };
+      }
+      return Boom.notFound("id not found");
     },
   },
 };
