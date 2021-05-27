@@ -38,7 +38,7 @@ const Admins = {
       const newAdmin = new Admin(request.payload);
       const admin = await newAdmin.save();
       if (admin) {
-        return h.response(user).code(201);
+        return h.response(admin).code(201);
       }
       return Boom.badImplementation("error creating admin");
     },
