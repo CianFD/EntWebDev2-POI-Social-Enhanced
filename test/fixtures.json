@@ -26,6 +26,32 @@
     "email": "maggie@simpson.com",
     "password": "secret"
   },
+  "admins": [
+    {
+      "firstName": "Michael",
+      "lastName": "Scott",
+      "email": "michael@scott.com",
+      "password": "secret"
+    },
+    {
+      "firstName": "Jim",
+      "lastName": "Halpert",
+      "email": "jim@halpert.com",
+      "password": "secret"
+    },
+    {
+      "firstName": "Pam",
+      "lastName": "Beasley",
+      "email": "pam@beasley.com",
+      "password": "secret"
+    }
+  ],
+  "newAdmin": {
+    "firstName": "Dwight",
+    "lastName": "Schrute",
+    "email": "dwight@schrute.com",
+    "password": "secret"
+  },
   "pois": [
     {
       "name": "Colt Island",

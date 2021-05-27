@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/user");
+const Admin = require("../models/admin");
 
 exports.createToken = function (user) {
   return jwt.sign({ id: user._id, email: user.email }, 'secretpasswordnotrevealedtoanyone', {
@@ -40,4 +41,45 @@ exports.getUserIdFromRequest = function (request) {
     userId = null;
   }
   return userId;
+};
+
+exports.createAdminToken = function (admin) {
+  return jwt.sign({ id: admin._id, email: admin.email }, 'secretpasswordnotrevealedtoanyone', {
+    algorithm: 'HS256',
+    expiresIn: '1h',
+  });
+};
+
+exports.decodeAdminToken = function (token) {
+  var userInfo = {};
+  try {
+    var decoded = jwt.verify(token, 'secretpasswordnotrevealedtoanyone');
+    adminInfo.adminId = decoded.id;
+    adminInfo.email = decoded.email;
+  } catch (e) {
+  }
+
+  return userInfo;
+};
+
+exports.validateAdmin = async function (decoded, request) {
+  const admin = await Admin.findOne({ _id: decoded.id });
+  if (!admin) {
+    return { isValid: false };
+  } else {
+    return { isValid: true };
+  }
+};
+
+exports.getAdminIdFromRequest = function (request) {
+  var adminId = null;
+  try {
+    const authorization = request.headers.authorization;
+    var token = authorization.split(" ")[1];
+    var decodedToken = jwt.verify(token, "secretpasswordnotrevealedtoanyone");
+    adminId = decodedToken.id;
+  } catch (e) {
+    adminId = null;
+  }
+  return adminId;
 };
