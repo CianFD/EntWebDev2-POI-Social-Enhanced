@@ -68,7 +68,7 @@ suite("POI API tests", function () {
     const returnedPoi = await userService.getPois(returnedUser._id);
     assert.isDefined(returnedPoi[0].creator);
 
-    const users = await userService.getUsers();
+    const users = await userService .getUsers();
     assert(_.some([users[0]], newUser), "returnedUser must be a superset of newUser");
   });
 });

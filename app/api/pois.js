@@ -30,8 +30,8 @@ const Pois = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      let poi = new Poi(request.payload);
       const userId = utils.getUserIdFromRequest(request);
+      let poi = new Poi(request.payload);
       poi.creator = userId;
       poi = await poi.save();
       return poi;

@@ -1,17 +1,17 @@
 "use strict";
 
-const User = require("../models/user");
+const Admin = require("../models/admin");
 const Boom = require("@hapi/boom");
 const utils = require('./utils.js');
 
-const Users = {
+const Admins = {
   find: {
     auth: {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      const users = await User.find();
-      return users;
+      const admins = await Admin.find();
+      return admins;
     },
   },
 
@@ -21,13 +21,13 @@ const Users = {
     },
     handler: async function (request, h) {
       try {
-        const user = await User.findOne({ _id: request.params.id });
-        if (!user) {
-          return Boom.notFound("No User with this id");
+        const admin = await Admin.findOne({ _id: request.params.id });
+        if (!admin) {
+          return Boom.notFound("No Admin with this id");
         }
-        return user;
+        return admin;
       } catch (err) {
-        return Boom.notFound("No User with this id");
+        return Boom.notFound("No Admin with this id");
       }
     },
   },
@@ -35,19 +35,19 @@ const Users = {
   create: {
     auth: false,
     handler: async function (request, h) {
-      const newUser = new User(request.payload);
-      const user = await newUser.save();
-      if (user) {
+      const newAdmin = new Admin(request.payload);
+      const admin = await newAdmin.save();
+      if (admin) {
         return h.response(user).code(201);
       }
-      return Boom.badImplementation("error creating user");
+      return Boom.badImplementation("error creating admin");
     },
   },
 
   deleteAll: {
     auth: false,
     handler: async function (request, h) {
-      await User.deleteMany({});
+      await Admin.deleteMany({});
       return { success: true };
     },
   },
@@ -57,25 +57,25 @@ const Users = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      const user = await User.deleteOne({ _id: request.params.id });
-      if (user) {
+      const admin = await Admin.deleteOne({ _id: request.params.id });
+      if (admin) {
         return { success: true };
       }
       return Boom.notFound("id not found");
     },
   },
 
-  authenticate: {
+  authenticateAdmin: {
     auth: false,
     handler: async function (request, h) {
       try {
-        const user = await User.findOne({ email: request.payload.email });
-        if (!user) {
-          return Boom.unauthorized("User not found");
-        } else if (user.password !== request.payload.password) {
+        const admin = await Admin.findOne({ email: request.payload.email });
+        if (!admin) {
+          return Boom.unauthorized("Admin not found");
+        } else if (admin.password !== request.payload.password) {
           return Boom.unauthorized("Invalid password");
         } else {
-          const token = utils.createToken(user);
+          const token = utils.createToken(admin);
           return h.response({ success: true, token: token }).code(201);
         }
       } catch (err) {
@@ -89,14 +89,14 @@ const Users = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      const userEdit = request.payload;
-      const user = await User.findById(userEdit._id);
-      user.firstName = userEdit.firstName;
-      user.lastName = userEdit.lastName;
-      user.email = userEdit.email;
-      user.password = userEdit.password;
-      await user.save();
-      if (user) {
+      const adminEdit = request.payload;
+      const admin = await User.findById(adminEdit._id);
+      admin.firstName = adminEdit.firstName;
+      admin.lastName = adminEdit.lastName;
+      admin.email = adminEdit.email;
+      admin.password = adminEdit.password;
+      await admin.save();
+      if (admin) {
         return { success: true };
       }
       return Boom.notFound("id not found");
@@ -104,4 +104,4 @@ const Users = {
   },
 };
 
-module.exports = Users;
+module.exports = Admins;

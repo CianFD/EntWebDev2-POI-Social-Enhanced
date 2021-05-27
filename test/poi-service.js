@@ -92,6 +92,49 @@ class poiService {
     axios.defaults.headers.common["Authorization"] = "";
   }
 
+  async getAdmins() {
+    const response = await axios.get(this.baseUrl + "/api/admins");
+    return response.data;
+  }
+
+  async getAdmin(id) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/admins/" + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async createAdmin(newAdmin) {
+    const response = await axios.post(this.baseUrl + "/api/admins", newAdmin);
+    return response.data;
+  }
+
+  async deleteAllAdmins() {
+    const response = await axios.delete(this.baseUrl + "/api/admins");
+    return response.data;
+  }
+
+  async deleteOneAdmin(id) {
+    const response = await axios.delete(this.baseUrl + "/api/admins/" + id);
+    return response.data;
+  }
+
+  async authenticateAdmin(admin) {
+    try {
+      const response = await axios.post(this.baseUrl + "/api/admins/authenticate", admin);
+      axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async clearAdminAuth(admin) {
+    axios.defaults.headers.common["Authorization"] = "";
+  }
+
 }
 
 module.exports = poiService;
