@@ -5,6 +5,8 @@ const Joi = require("@hapi/joi");
 const Admin = require("../models/admin");
 const POI = require("../models/poi");
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 
 const Admins = {
@@ -30,10 +32,10 @@ const Admins = {
     auth: false,
     validate: {
       payload: {
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
+        firstName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-]{3,15}$/).required(),
+        lastName: Joi.string().pattern(/^[A-Z][a-zA-Z\s-']{3,15}$/).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_$./]{8}$/).required(),
       },
       options: {
         abortEarly: false,
@@ -56,11 +58,12 @@ const Admins = {
           const message = "Email address is already registered";
           throw Boom.badData(message);
         }
+        const hash = await bcrypt.hash(payload.password, saltRounds);
         const newAdmin = new Admin({
           firstName: payload.firstName,
           lastName: payload.lastName,
           email: payload.email,
-          password: payload.password,
+          password: hash,
         });
         admin = await newAdmin.save();
         request.cookieAuth.set({ id: admin.id });
@@ -81,7 +84,7 @@ const Admins = {
     validate: {
       payload: {
         email: Joi.string().email().required(),
-        password: Joi.string().required(),
+        password: Joi.string().pattern(/[a-zA-Z0-9'!@-_]{8,20}$/).required(),
       },
       options: {
         abortEarly: false,
@@ -104,7 +107,7 @@ const Admins = {
           const message = "Email address is not registered";
           throw Boom.unauthorized(message);
         }
-        admin.comparePassword(password);
+        await admin.comparePassword(password);
         request.cookieAuth.set({ id: admin.id });
         return h.redirect("/adminDashboard");
       } catch (err) {
